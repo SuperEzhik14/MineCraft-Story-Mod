@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MineCearira.MyFormula
+namespace MineCraft_Story_Mod
 {
-    internal interface ICorpus
+    class Person<T>
     {
+        public string Name { get; set; }
+        public T Id { get; set; }
     }
 }

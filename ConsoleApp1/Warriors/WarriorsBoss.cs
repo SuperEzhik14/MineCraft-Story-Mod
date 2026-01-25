@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MineCearira.MyFormula
+namespace StarsWars.Warriorsa
 {
-    internal interface ITerdins
+    internal class WarriorsBoss
     {
     }
 }

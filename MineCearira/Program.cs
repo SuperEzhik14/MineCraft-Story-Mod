@@ -1,17 +1,27 @@
-﻿using MineCearira.MyFormula;
+﻿
+
+using System;
+using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace MineCearira
 {
     internal class Program
     {
-        class Car
-        {
-            public IEngine engine = new EngineHap();
-        }
+        
         static void Main(string[] args)
         {
-            Car car = new Car();
-            car.engine.Start();
+            foreach (ConsoleColor color in Enum.GetValues(typeof(ConsoleColor)))
+            {
+                Console.ForegroundColor = color;
+                Console.WriteLine(color);
+            }
+
+            
+
+
+            
         }
+
     }
 }
