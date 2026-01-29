@@ -80,15 +80,15 @@ namespace StarsWars.Warriorsa
         {
             if (new Random().Next(map.GamePlay + 50) == 0)
             {
-                map.masiv[Y + 2, X + 1] = '§';
-                map.masiv[Y + 2, X + 3] = '§';
-                map.masiv[Y + 2, X + 5] = '§';
+                map.masiv[Y + 2, X] = '§';
+                map.masiv[Y + 2, X + 2] = '§';
+                map.masiv[Y + 2, X + 4] = '§';
+                map.masiv[Y + 2, X + 6] = '§';
 
-
-                map.masiv[Y + 3, X] = '§';
-                map.masiv[Y + 3, X + 2] = '§';
-                map.masiv[Y + 3, X + 4] = '§';
-                map.masiv[Y + 3, X + 6] = '§';
+                map.masiv[Y + 3, X + 1] = '§';
+                map.masiv[Y + 3, X + 5] = '§';
+                map.masiv[Y + 4, X + 1] = '§';
+                map.masiv[Y + 4, X + 5] = '§';
 
             }
             else
@@ -125,15 +125,15 @@ namespace StarsWars.Warriorsa
                 masiv = new char[,]
             {
                 {'╪',' ','_','v','_',' ','╪'},
-                {'■',' ','╪',' ','╪',' ','■'}
+                {'■','×','╪',' ','╪','×','■'}
             };
             }
             else
             {
                 masiv = new char[,]
             {
-                {'╪','_','v','_','╪'},
-                {'■','╪',' ','╪','■'}
+                {'╪',' ','_','v','_',' ','╪'},
+                {'■',' ','╪',' ','╪',' ','■'}
             };
             }
         }
@@ -157,6 +157,94 @@ namespace StarsWars.Warriorsa
             {
                 {'╪',' ','_','v','_',' ','╪'},
                 {'■',' ','╪',' ','╪',' ','■'}
+            };
+        }
+    }
+    class WarriorsMiniBoss3 : Warriors
+    {
+        public void GetAttack(ref Map map)
+        {
+            if (new Random().Next(map.GamePlay + 50) == 0)
+            {
+                map.masiv[Y + 2, X] = '§';
+                map.masiv[Y + 2, X + 2] = '§';
+                map.masiv[Y + 2, X + 4] = '§';
+                map.masiv[Y + 2, X + 6] = '§';
+
+                map.masiv[Y + 3, X + 1] = '§';
+                map.masiv[Y + 3, X + 5] = '§';
+                map.masiv[Y + 4, X + 1] = '§';
+                map.masiv[Y + 4, X + 5] = '§';
+
+            }
+            else
+            {
+                map.masiv[Y + 2, X + 1] = '×';
+                map.masiv[Y + 2, X + 3] = '×';
+                map.masiv[Y + 2, X + 5] = '×';
+
+
+                map.masiv[Y + 3, X] = '×';
+                map.masiv[Y + 3, X + 2] = '×';
+                map.masiv[Y + 3, X + 4] = '×';
+                map.masiv[Y + 3, X + 6] = '×';
+            }
+
+        }
+        public void GetAbility1(ref Map map)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                map.masiv[Y + (2 + i), X + 2] = '§';
+                map.masiv[Y + (2 + i), X + 3] = '§';
+            }
+        }
+        public void GetAbility2(ref Map map)
+        {
+            XP += 100;
+        }
+        public void GetAbility3(ref Map map)
+        {
+            if (new Random().Next(5) == 0)
+            {
+                masiv = new char[,]
+            {
+                {'<','×','<','0','<','×','<'},
+                {'>','×','>',' ','>','×','>'},
+                {'<','×','<',' ','<','×','<'}
+            };
+            }
+            else
+            {
+                masiv = new char[,]
+            {
+                {'<',' ','<','0','<',' ','<'},
+                {'>',' ','>',' ','>',' ','>'},
+                {'<',' ','<',' ','<',' ','<'}
+            };
+            }
+        }
+        public ConsoleColor GetColor()
+        {
+            return ConsoleColor.Green;
+        }
+        public bool muve { get; set; }
+        public int Money { get; set; }
+        public int XP { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+        public char[,] masiv { get; set; }
+        public WarriorsMiniBoss3()
+        {
+            Money = 1500;
+            X = new Random().Next(3, 36);
+            Y = 5;
+            XP = 2000;
+            masiv = new char[,]
+            {
+                {'<',' ','<','0','<',' ','<'},
+                {'>',' ','>',' ','>',' ','>'},
+                {'<',' ','<',' ','<',' ','<'}
             };
         }
     }

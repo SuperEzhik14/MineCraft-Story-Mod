@@ -50,6 +50,7 @@ namespace StarsWars
         private int index;
         private int money;
         private int experience;
+        private int Time;
         private Map map; 
         private Random r = new Random();
         private bool game;
@@ -640,6 +641,29 @@ namespace StarsWars
                     case ConsoleKey.Spacebar:
                         {
                             Shop = false;
+                        }
+                        break;
+                    case ConsoleKey.R:
+                        {
+                            if (money >= 10000)
+                            {
+                                money -= 10000;
+                                rocket[index].XPlvl = 10;
+                                rocket[index].Damagelvl = 10;
+                                rocket[index].Abilitylvl = 10;
+                                rocket[index].Energylvl = 10;
+                                rocket[index].Speedlvl = 10;
+                                rocket[index].MaxXP += 1000;
+                                rocket[index].Damage = 10;
+                                rocket[index].MaxEnergy = 1000;
+                                rocket[index].Speed = 3;
+                                rocket[index].XP = rocket[index].MaxXP;
+                                rocket[index].Energy = rocket[index].MaxEnergy;
+                                Console.Clear();
+                                Console.WriteLine("Ухты Секретка! прокачка всего)))))");
+                                Thread.Sleep(5000);
+                            }
+                            
                         }
                         break;
                 }
@@ -1255,15 +1279,16 @@ namespace StarsWars
         }
         private void RenderingMap()
         {
-
+            Time++;
             // Spawn Metiors
             if (r.Next(map.GamePlay + 80) <= 1)
             {
                 map.masiv[0, r.Next(0, map.masiv.GetLength(1))] = '!';
             }
-            if (r.Next(1200) == 1 && map.GamePlay > 2)
+            if (Time == 100 && map.GamePlay > 2)
             {
                 map.GamePlay--;
+                Time = 0;
             }
             for (int i = 0; i < map.masiv.GetLength(1); i++)
             {
@@ -1574,7 +1599,7 @@ namespace StarsWars
                             if ((r.Next(1000) == 0 && experience >= 250) || (r.Next(500) == 0 && experience >= 650) || (r.Next(200) == 0 && experience >= 1000) || (r.Next(100) == 0 && experience >= 1500 || (r.Next(50) == 0 && experience >= 2000)))
                             {
 
-                                switch (r.Next(2))
+                                switch (r.Next(3))
                                 {
                                     case 0:
                                         {
@@ -1586,6 +1611,14 @@ namespace StarsWars
                                             if (r.Next(2) == 0)
                                             {
                                                 warrior.Add(new WarriorsMiniBoss2());
+                                            }
+                                        }
+                                        break;
+                                    case 2:
+                                        {
+                                            if (r.Next(2) == 0)
+                                            {
+                                                warrior.Add(new WarriorsMiniBoss3());
                                             }
                                         }
                                         break;
@@ -1626,14 +1659,20 @@ namespace StarsWars
                 {
                     for (int g = 0; g < wr.masiv.GetLength(1); g++)
                     {
-                        if (map.masiv[wr.Y + h, wr.X + g] == '#' || map.masiv[wr.Y + h, wr.X + g] == '♀')
+                        try
                         {
-                            map.masiv[wr.Y + h, wr.X + g] = '¤';
-                            wr.XP -= rocket[index].Damage;
-                            continue;
-                        }
+                            if (map.masiv[wr.Y + h, wr.X + g] == '#' || map.masiv[wr.Y + h, wr.X + g] == '♀')
+                            {
+                                wr.XP -= rocket[index].Damage;
+                                continue;
+                            }
 
-                        map.masiv[wr.Y + h, wr.X + g] = wr.masiv[h, g];
+                            map.masiv[wr.Y + h, wr.X + g] = wr.masiv[h, g];
+                        }
+                        catch
+                        {
+
+                        }
 
                     }
                 }
@@ -1653,9 +1692,10 @@ namespace StarsWars
                         }
                     }
                     // Это Для Анимации Зрыва Вражеских Самолет
+                    continue;
                 }
 
-                if (wr is WarriorsMiniBoss1 || wr is WarriorsMiniBoss2)
+                if (wr is WarriorsMiniBoss1 || wr is WarriorsMiniBoss2 || wr is WarriorsMiniBoss3)
                 {
                     // Супер Силы и Атака Мини Боссов!
                     if (r.Next(30) == 0)
@@ -1729,6 +1769,28 @@ namespace StarsWars
             };
                         }
                     }
+                    else if (wr is WarriorsMiniBoss3)
+                    {
+                        if ((wr.XP < 1000 && r.Next(5) == 0) || (wr.XP < 200))
+                        {
+                            wr.masiv = new char[,]
+                            {
+                {'<','×','<','0','<','×','<'},
+                {'>','×','>',' ','>','×','>'},
+                {'×','×','×',' ','×','×','×'}
+                            };
+                            
+                        }
+                        else
+                        {
+                            wr.masiv = new char[,]
+                            {
+                {'<',' ','<','0','<',' ','<'},
+                {'>',' ','>',' ','>',' ','>'},
+                {'<',' ','<',' ','<',' ','<'}
+                            };
+                        }
+                    }
 
 
 
@@ -1739,7 +1801,7 @@ namespace StarsWars
                         if (r.Next(25) == 1)
                             wr.muve = true;
                         wr.X++;
-                        if ((wr.XP <= 100 && wr is WarriorsMiniBoss1) || (wr.XP <= 400 && wr is WarriorsMiniBoss2))
+                        if ((wr.XP <= 100 && wr is WarriorsMiniBoss1) || (wr.XP <= 400 && wr is WarriorsMiniBoss2) || (wr.XP <= 1000 && wr is WarriorsMiniBoss3))
                         {
                             wr.X++;
 
@@ -1748,7 +1810,7 @@ namespace StarsWars
                     else if (wr.muve && wr.X > 2)
                     {
                         wr.X--;
-                        if ((wr.XP <= 100 && wr is WarriorsMiniBoss1) || (wr.XP <= 400 && wr is WarriorsMiniBoss2))
+                        if ((wr.XP <= 100 && wr is WarriorsMiniBoss1) || (wr.XP <= 400 && wr is WarriorsMiniBoss2) || (wr.XP <= 1000 && wr is WarriorsMiniBoss3))
                         {
                             wr.X--;
                         }
