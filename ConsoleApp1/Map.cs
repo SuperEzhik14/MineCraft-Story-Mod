@@ -79,7 +79,7 @@ namespace StarsWars
             }
             while (true)
             {
-                if (num2 == 200)
+                if (num2 == 1000)
                     break;
                 num2++;
                 Console.ForegroundColor = ConsoleColor.Gray;
