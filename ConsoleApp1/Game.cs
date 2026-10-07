@@ -31,8 +31,8 @@ namespace StarsWars
             SuperMetiors = 0;
             Potrons = 0;
 
-            money = 100000;
-            experience = 2000;
+            money = 100;
+            experience = 0;
             rocketshop = new bool[rocket.Count];
             rocketshop[0] = true;
             index = 0;
@@ -682,7 +682,7 @@ namespace StarsWars
             Console.Clear();
             while (Shop)
             {
-                Console.SetCursorPosition(0, 0);
+                Console.Clear();
                 Console.WriteLine($"[Пробел ,Выйти]\t[S, Купить]\t[D , Переключаться]\t\t[Опыт] {experience} #\t[Баланс] {money} $\n");
                 // Вырисовка Корабля на котором играют
                 Console.WriteLine($"█▓▒▒░░            Активный             ░░▒▒▓█");
